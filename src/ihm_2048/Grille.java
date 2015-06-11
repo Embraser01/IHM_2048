@@ -15,6 +15,8 @@ public class Grille {
     private int taille;
     
     private Case[][] tab;
+    
+    private boolean isMove;
 
     public Grille(int taille) {
         this.taille = taille;
@@ -127,6 +129,7 @@ public class Grille {
                             if(k > 0){
                                 this.tab[y-k][x].setValue(this.tab[y][x].getValue());
                                 this.tab[y][x].clear();
+                                this.isMove = true;
                             }
                             
                         }
@@ -155,6 +158,7 @@ public class Grille {
                             if(k > 0){
                                 this.tab[y][x + k].setValue(this.tab[y][x].getValue());
                                 this.tab[y][x].clear();
+                                this.isMove = true;
                             }
                         }
                     }
@@ -179,6 +183,7 @@ public class Grille {
                             if(k > 0){
                                 this.tab[y+k][x].setValue(this.tab[y][x].getValue());
                                 this.tab[y][x].clear();
+                                this.isMove = true;
                             }
                             
                         }
@@ -206,6 +211,7 @@ public class Grille {
                             if(k > 0){
                                 this.tab[y][x - k].setValue(this.tab[y][x].getValue());
                                 this.tab[y][x].clear();
+                                this.isMove = true;
                             }
                         }
                     }
@@ -219,6 +225,7 @@ public class Grille {
     public void play(int dir){
         dir = dir%4;
         
+        this.isMove = false;
         this.move(dir);
         
         switch(dir){
@@ -229,6 +236,7 @@ public class Grille {
                             
                             tab[y][x].setValue(2*tab[y + 1][x].getValue());
                             tab[y + 1][x].clear();
+                            this.isMove = true;
                             y++;                        
                         }
                     }
@@ -241,6 +249,7 @@ public class Grille {
                             
                             tab[y][x].setValue(2*tab[y][x - 1].getValue());
                             tab[y][x - 1].clear();
+                            this.isMove = true;
                             x--;                        
                         }
                     }
@@ -254,6 +263,7 @@ public class Grille {
                             
                             tab[y][x].setValue(2*tab[y - 1][x].getValue());
                             tab[y - 1][x].clear();
+                            this.isMove = true;
                             y--;                        
                         }
                     }
@@ -266,6 +276,7 @@ public class Grille {
                             
                             tab[y][x].setValue(2*tab[y][x + 1].getValue());
                             tab[y][x + 1].clear();
+                            this.isMove = true;
                             x++;                        
                         }
                     }
@@ -274,7 +285,8 @@ public class Grille {
             
         }
         this.move(dir);
-        this.setRand();
+        if(this.isMove)
+            this.setRand();
     }
     
     
